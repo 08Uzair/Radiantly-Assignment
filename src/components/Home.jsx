@@ -4,14 +4,19 @@ import logo from "../assets/logo.png";
 import Loader from "./Loader";
 
 const Home = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
+  const [filteredData, setFilteredData] = useState([]); // State for filtered data
   const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const api = await axios.get("https://pokeapi.co/api/v2/pokemon");
+        const api = await axios.get(
+          "https://pokeapi.co/api/v2/pokemon?limit=20"
+        ); // fetching 100 Pokémon for better demonstration
         setData(api.data.results);
+        setFilteredData(api.data.results); // Initialize filtered data with full list
       } catch (error) {
         console.log(error);
       }
@@ -19,18 +24,42 @@ const Home = () => {
     fetchData();
   }, []);
 
+  // Handler for search input
+  const handleSearchChange = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+    if (query) {
+      setFilteredData(
+        data.filter((pokemon) => pokemon.name.toLowerCase().includes(query))
+      );
+    } else {
+      setFilteredData(data); // Reset if no query
+    }
+  };
+
   // Handler to close the modal
   const closeModal = () => setSelectedItem(null);
 
   return (
     <>
-      {!data ? (
+      {!data.length ? (
         <Loader />
       ) : (
         <>
-          <div className="min-h-screen bg-black bg-cover bg-fixed bg-blend-overlay ">
+          <div className="min-h-screen bg-black bg-cover bg-fixed bg-blend-overlay">
+            {/* Search Input */}
+            <div className="flex justify-center items-center py-8">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                className="w-1/2 px-4 py-2 rounded-lg text-black"
+                placeholder="Search Pokémon by name..."
+              />
+            </div>
+
             <div className="container relative flex flex-wrap justify-center items-center before:content-[' '] before:fixed before:top-0 before:left-[45rem] before:w-[53%] before:h-[31%] before:bg-[#f8094d] before:clip-path-[circle(70%_at_100%_-74%)] after:content-[' '] after:fixed after:top-0 after:left-0 after:w-full after:h-full after:bg-white after:clip-path-[circle(35%_at_0%_100%)] z-[11]">
-              {data?.map((item, index) => {
+              {filteredData?.map((item, index) => {
                 return (
                   <div
                     key={index}
