@@ -21,7 +21,7 @@ This is a simple React application that displays Pokemon data from the [PokeAPI]
 
 ### 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/pokemon-card-viewer.git
+git clone https://github.com/08Uzair/Radiantly-Assignment.git
 cd pokemon-card-viewer
 ```
 
