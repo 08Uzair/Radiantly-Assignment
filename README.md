@@ -13,8 +13,8 @@ This is a simple React application that displays Pokemon data from the [PokeAPI]
 ---
 
 ## 🌟 Features
-- 📦 **Displays Pokémon Data**: Fetches and displays Pokémon names and images in responsive cards.
-- 🔍 **Search Functionality**: Allows users to search for Pokémon by name.
+- 📦 **Displays Pokémon Data**: Fetches and displays Pokemon names and images in responsive cards.
+- 🔍 **Search Functionality**: Allows users to search for Pokemon by name.
 - 💻 **Built with React**: Developed using React, Axios for API calls, and Tailwind CSS for styling.
 
 ## 🚀 Getting Started
